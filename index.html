@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NurAlom - Premium Portfolio</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    /* Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    :root {
+      --bg-1: #0d1117;
+      --bg-2: #1f242d;
+      --text: #e6edf3;
+      --muted: #b3b9c5;
+      --brand-1: #ff00cc;
+      --brand-2: #3333ff;
+      --brand-3: #00ffcc;
+      --card: rgba(255, 255, 255, 0.06);
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+    }
+
+     span{
+      position: relative;
+    display: inline-block;
+    color: transparent;
+    -webkit-text-stroke: 0.7px #7cf03d;
+    animation: display-text 16s linear infinite;
+    animation-delay: calc(-4s * var(--i));
+}
+span::before{
+content: attr(data-text);
+position: absolute;
+width: 0;
+border-right: 2px solid #7cf03d;
+color: #7cf03d;
+white-space: nowrap;
+overflow: hidden;
+animation: fill-text 4s linear infinite;
+}
+@keyframes fill-text{
+  10%,
+  100%{
+    width: 0;
+  }
+  70%,
+  90%{
+    width: 100%;
+  }
+}
+@keyframes display-text{
+  25%,
+  100%{
+    display: none;
+  }
+}
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 1200px at 20% 10%, #171b22 0%, transparent 60%),
+                  radial-gradient(800px 800px at 80% 0%, #151a20 0%, transparent 60%),
+                  linear-gradient(135deg, var(--bg-2), var(--bg-1));
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Utils */
+    .container { width: min(1140px, 92%); margin: 0 auto; }
+    .grid { display: grid; gap: 26px; }
+    .glass { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: var(--radius); }
+    .title-gradient { background: linear-gradient(90deg, var(--brand-1), var(--brand-2), var(--brand-3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 300%; animation: gradientMove 8s linear infinite; }
+
+    @keyframes gradientMove { 0% {background-position: 0%} 100% {background-position: 300%} }
+
+    /* Navbar */
+    .navbar { position: fixed; inset: 0 0 auto 0; z-index: 1000; }
+    .nav-wrap { display:flex; align-items:center; justify-content:space-between; padding:14px 22px; }
+    .nav { background: rgba(255,255,255,0.05); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+    .logo { font-weight:700; font-size: 1.25rem; letter-spacing: .5px; }
+    .logo span { background: linear-gradient(90deg, var(--brand-1), var(--brand-2), var(--brand-3)); -webkit-background-clip:text; -webkit-text-fill-color: transparent; background-size: 300%; animation: gradientMove 6s linear infinite; }
+    .nav-links { display:flex; gap: 22px; align-items:center; }
+    .nav-links a { color: var(--text); text-decoration:none; font-weight:500; opacity:.85; padding:8px 12px; border-radius: 14px; transition:.25s ease; }
+    .nav-links a:hover { opacity:1; background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color:#00ffcc; background: rgba(0,255,204,.12); box-shadow: 0 0 16px rgba(0,255,204,.15); }
+    .menu-btn { display:none; font-size: 1.8rem; cursor:pointer; }
+
+    /* Hero */
+    section { padding: 110px 0; }
+    .home { display:grid; align-items:center; min-height: 100vh; }
+    .home-grid { grid-template-columns: 1.15fr .85fr; gap: 44px; }
+    .home h1 { font-size: clamp(2.2rem, 4vw, 3.5rem); margin: 0 0 10px; }
+    .home h2 { font-size: clamp(1.1rem, 2.2vw, 1.6rem); color: var(--muted); margin: 0 0 18px; }
+    .home p { color: #c3c9d4; line-height: 1.8; margin: 0 0 28px; }
+
+    .btn { display:inline-block; padding: 12px 24px; border-radius: 30px; text-decoration:none; color:white; font-weight:600; position:relative; overflow:hidden; background: linear-gradient(90deg, var(--brand-1), var(--brand-2), var(--brand-3)); background-size: 300%; animation: gradientMove 8s linear infinite; }
+    .btn::after { content:''; position:absolute; inset:0; left:-100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent); transform: skewX(-20deg); transition: .6s; }
+    .btn:hover::after { left: 100%; }
+
+    .btn-ghost { border: 1px solid rgba(255,255,255,.25); color: var(--text); background: transparent; }
+
+    .btns { display:flex; gap: 14px; flex-wrap: wrap; }
+
+    .sci { display:flex; gap: 12px; margin-top: 18px; }
+    .sci a { width:42px; height:42px; display:grid; place-items:center; border-radius: 14px; color: var(--text); text-decoration:none; border: 1px solid var(--border); transition:.25s; }
+    .sci a:hover { color:#00ffcc; box-shadow: 0 0 16px rgba(0,255,204,.25); border-color: rgba(0,255,204,.35); }
+
+    /* Profile image rainbow ring */
+    .home-img { display:flex; justify-content:center; }
+    .img-box { position: relative; width: 320px; height: 320px; border-radius: 50%; display:flex; justify-content:center; align-items:center; overflow:hidden; }
+    .img-box::before, .img-box::after { content:''; position:absolute; width:520px; height:520px; background: conic-gradient(red,orange,yellow,lime,cyan,blue,magenta,red); animation: rotate 4s linear infinite, colorShift 6s ease-in-out infinite; filter: blur(15px) brightness(1.5); }
+    .img-box::after { animation-delay: -2s, -3s; }
+    .img-item { position:relative; width:100%; height:100%; border-radius:50%; overflow:hidden; z-index:1; background: rgba(255,255,255,.06); border:1px solid var(--border); box-shadow: 0 0 25px rgba(255,255,255,.2), 0 0 50px rgba(255,255,255,.12); backdrop-filter: blur(6px); }
+    .img-item img { width:100%; height:auto; display:block; }
+
+    @keyframes rotate { from {transform: rotate(0)} to { transform: rotate(360deg) } }
+    @keyframes colorShift { 0% { filter: blur(15px) brightness(1.5) hue-rotate(0deg) } 50% { filter: blur(15px) brightness(1.5) hue-rotate(180deg) } 100% { filter: blur(15px) brightness(1.5) hue-rotate(360deg) } }
+
+    /* Section headers */
+    .section-head { text-align:center; margin-bottom: 40px; }
+    .section-head h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin:0 0 8px; }
+    .section-head p { color: var(--muted); margin:0; }
+
+    /* About */
+    .about-grid { grid-template-columns: 1fr 1fr; }
+    .about-card { padding: 26px; }
+    .about-card p { color:#cbd2dc; line-height:1.8; }
+    .stats { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+    .stat { padding: 16px; text-align:center; border-radius: 16px; border:1px solid var(--border); background: rgba(255,255,255,.04); }
+    .stat h4 { margin: 6px 0 0; font-weight:700; font-size:1.3rem; }
+    .stat span { font-size:.9rem; color: var(--muted) }
+
+    /* Timeline */
+    .timeline { position:relative; padding-left: 24px; }
+    .timeline::before { content:''; position:absolute; left:8px; top:0; bottom:0; width:2px; background: linear-gradient(180deg, var(--brand-1), var(--brand-2), var(--brand-3)); box-shadow: 0 0 14px rgba(0,255,204,.3); }
+    .tl-item { position:relative; padding: 16px 16px 16px 24px; border-left: 2px solid transparent; }
+    .tl-item::before { content:''; position:absolute; left:-3px; top:18px; width:10px; height:10px; border-radius:50%; background: #00ffcc; box-shadow: 0 0 0 4px rgba(0,255,204,.15); }
+    .tl-item h4 { margin:0 0 6px; }
+    .tl-item p { margin:0; color:#cbd2dc; }
+
+    /* Services */
+    .services-grid { grid-template-columns: repeat(3, 1fr); }
+    .service { padding: 24px; text-align:left; transition:.25s; }
+    .service i { font-size: 2rem; margin-bottom: 10px; display:inline-block; }
+    .service h4 { margin: 6px 0 8px; }
+    .service p { color:#cbd2dc; }
+    .service:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+
+    /* Portfolio */
+    .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+    .project { position:relative; overflow:hidden; border-radius: 18px; border:1px solid var(--border); background: rgba(255,255,255,.04); }
+    .project img { width:100%; height: 220px; object-fit: cover; display:block; transition:.4s ease; }
+    .project .meta { position:absolute; inset:auto 0 0 0; padding: 16px; background: linear-gradient(180deg, transparent, rgba(0,0,0,.65)); display:flex; align-items:end; gap:10px; justify-content:space-between; }
+    .project:hover img { transform: scale(1.06); filter: brightness(.9); }
+    .chip { display:inline-flex; align-items:center; gap:6px; padding: 6px 10px; border-radius: 999px; border:1px solid var(--border); background: rgba(255,255,255,.06); font-size:.8rem; }
+
+    /* Contact */
+    .contact-wrap { display:grid; grid-template-columns: 1.1fr .9fr; gap: 26px; }
+    form { display:grid; gap: 14px; }
+    input, textarea { width:100%; padding: 14px 16px; border-radius: 14px; border:1px solid var(--border); background: rgba(255,255,255,.05); color: var(--text); outline:none; }
+    textarea { min-height: 140px; resize: vertical; }
+    .contact-card { padding: 22px; }
+    .contact-item { display:flex; align-items:center; gap: 12px; padding: 14px; border-radius: 14px; border:1px solid var(--border); background: rgba(255,255,255,.04); }
+
+    /* Footer */
+    footer { padding: 26px 0 36px; border-top: 1px solid var(--border); background: rgba(255,255,255,.04); }
+    .foot { display:flex; justify-content:space-between; align-items:center; gap: 12px; flex-wrap:wrap; }
+    .foot .social a { color:var(--text); margin-right:10px; text-decoration:none; }
+    .foot .social a:hover { color:#00ffcc; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .home-grid, .about-grid, .services-grid, .portfolio-grid, .contact-wrap { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .menu-btn { display:block; }
+      .nav-links { position: fixed; top: 64px; right: 14px; left: 14px; padding: 14px; border-radius: 16px; background: rgba(20,24,31,.95); backdrop-filter: blur(10px); border:1px solid var(--border); flex-direction: column; gap: 10px; transform: scale(.98) translateY(-20px); opacity: 0; pointer-events: none; transition: .25s ease; }
+      .nav-links.show { transform: none; opacity: 1; pointer-events: auto; }
+      .home-grid, .about-grid, .contact-wrap { grid-template-columns: 1fr; }
+      .img-box { width: 280px; height: 280px; }
+      .services-grid, .portfolio-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header class="navbar nav">
+    <div class="container nav-wrap">
+      <div class="logo">Portfo<span>lio.</span></div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <i class='bx bx-menu menu-btn' id="menuBtn"></i>
+    </div>
+  </header>
+
+  <!-- Home -->
+  <section id="home" class="home">
+    <div class="container grid home-grid">
+      <div>
+        <h1 class="title-gradient">NurAlom</h1>
+        <h2>I'm a
+          <span style="--i:4;" data-text="Fullstack Developer">Fullstack Developer</span>
+          <span style="--i:3;" data-text="Animator">Animator</span>
+          <span style="--i:2;" data-text="Youtuber">Youtuber</span>
+          <span style="--i:1;" data-text="designer">designer</span>
+        </h2>
+        <p>Crafting modern, accessible and blazing‑fast web experiences with a focus on performance and delightful UX. I love React, CSS art and micro‑animations.</p>
+        <div class="btns">
+          <a href="#contact" class="btn">Hire Me</a>
+          <a href="#portfolio" class="btn btn-ghost">View Work</a>
+        </div>
+        <div class="sci">
+          <a href="#" aria-label="GitHub"><i class='bx bxl-github'></i></a>
+          <a href="#" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+          <a href="#" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+          <a href="#" aria-label="YouTube"><i class='bx bxl-youtube'></i></a>
+          <a href="#" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+        </div>
+      </div>
+
+      <div class="home-img">
+        <div class="img-box">
+          <div class="img-item">
+            <img src="asim.png" alt="Profile Photo" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <h3 class="title-gradient">About Me</h3>
+        <p>A quick snapshot of skills, experience and background</p>
+      </div>
+      <div class="grid about-grid">
+        <div class="glass about-card">
+          <h4>Who am I?</h4>
+          <p>I'm NurAlom, a frontend developer based in Bangladesh. I design and build responsive websites with a premium look using modern tools. My focus areas are React, Next.js, Tailwind CSS and motion design. I care about clean code, accessibility and real‑world performance.</p>
+          <div class="stats">
+            <div class="stat"><h4>3+ yrs</h4><span>Experience</span></div>
+            <div class="stat"><h4>25+</h4><span>Projects</span></div>
+            <div class="stat"><h4>10+</h4><span>Happy Clients</span></div>
+          </div>
+        </div>
+        <div class="glass about-card">
+          <h4>Experience Timeline</h4>
+          <div class="timeline">
+            <div class="tl-item">
+              <h4>Frontend Developer • Freelance</h4>
+              <p>2023 — Present · React, Next.js, Tailwind, Framer Motion</p>
+            </div>
+            <div class="tl-item">
+              <h4>Web Designer • Self‑taught</h4>
+              <p>2021 — 2023 · HTML, CSS, JavaScript, UI/UX fundamentals</p>
+            </div>
+            <div class="tl-item">
+              <h4>Learning Journey</h4>
+              <p>2019 — 2021 · Programming basics, Git/GitHub, modern tooling</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="section-head">
+        <h3 class="title-gradient">Featured Work</h3>
+        <p>Some recent projects I’m proud of</p>
+      </div>
+
+      <div class="grid portfolio-grid">
+        <article class="project glass">
+          <img src="https://images.unsplash.com/photo-1529336953121-a0ce99a0a76e?q=80&w=1400&auto=format&fit=crop" alt="SaaS Dashboard" />
+          <div class="meta">
+            <div class="chip"><i class='bx bxl-react'></i> React</div>
+            <a class="btn btn-ghost" href="#">Live</a>
+          </div>
+        </article>
+        <article class="project glass">
+          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1400&auto=format&fit=crop" alt="Portfolio Template" />
+          <div class="meta">
+            <div class="chip"><i class='bx bx-palette'></i> Tailwind</div>
+            <a class="btn btn-ghost" href="#">Live</a>
+          </div>
+        </article>
+        <article class="project glass">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1400&auto=format&fit=crop" alt="E‑commerce UI" />
+          <div class="meta">
+            <div class="chip"><i class='bx bx-cart'></i> Next.js</div>
+            <a class="btn btn-ghost" href="#">Live</a>
+          </div>
+        </article>
+        <article class="project glass">
+          <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=1400&auto=format&fit=crop" alt="Admin Panel" />
+          <div class="meta">
+            <div class="chip"><i class='bx bx-line-chart'></i> Charts</div>
+            <a class="btn btn-ghost" href="#">Live</a>
+          </div>
+        </article>
+        <article class="project glass">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop" alt="Blog Platform" />
+          <div class="meta">
+            <div class="chip"><i class='bx bx-news'></i> Markdown</div>
+            <a class="btn btn-ghost" href="#">Live</a>
+          </div>
+        </article>
+        <article class="project glass">
+          <img src="https://images.unsplash.com/photo-1547658718-1cdaa0851739?q=80&w=1400&auto=format&fit=crop" alt="Landing Page" />
+          <div class="meta">
+            <div class="chip"><i class='bx bx-bolt-circle'></i> Motion</div>
+            <a class="btn btn-ghost" href="#">Live</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h3 class="title-gradient">Services</h3>
+        <p>What I can do for your business</p>
+      </div>
+      <div class="grid services-grid">
+        <div class="service glass">
+          <i class='bx bx-code-curly'></i>
+          <h4>Frontend Development</h4>
+          <p>Modern SPA/MPA with React, Next.js & Tailwind. Clean, scalable and maintainable code.</p>
+        </div>
+        <div class="service glass">
+          <i class='bx bx-devices'></i>
+          <h4>Responsive UI/UX</h4>
+          <p>Pixel‑perfect, mobile‑first layouts with accessibility and performance in mind.</p>
+        </div>
+        <div class="service glass">
+          <i class='bx bx-rocket'></i>
+          <h4>Performance & SEO</h4>
+          <p>Core Web Vitals improvements, image optimization, metadata, schema & best practices.</p>
+        </div>
+        <div class="service glass">
+          <i class='bx bx-cube'></i>
+          <h4>Design Systems</h4>
+          <p>Reusable components, tokens and documentation to scale teams and products.</p>
+        </div>
+        <div class="service glass">
+          <i class='bx bx-video-recording'></i>
+          <h4>Micro‑interactions</h4>
+          <p>Delightful animations with CSS/Framer Motion to elevate brand perception.</p>
+        </div>
+        <div class="service glass">
+          <i class='bx bx-support'></i>
+          <h4>Support & Handover</h4>
+          <p>Clear documentation, version control and developer‑friendly project setup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h3 class="title-gradient">Contact</h3>
+        <p>Let’s build something great together</p>
+      </div>
+      <div class="contact-wrap">
+        <div class="glass contact-card">
+          <h4>Send a message</h4>
+          <form onsubmit="event.preventDefault(); alert('Thanks! I\'ll get back to you soon.'); this.reset();">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <input type="text" placeholder="Subject">
+            <textarea placeholder="Message" required></textarea>
+            <button class="btn" type="submit">Send Message</button>
+          </form>
+        </div>
+        <div class="grid" style="gap:16px">
+          <div class="glass contact-card contact-item"><i class='bx bx-map'></i> Dhaka, Bangladesh</div>
+          <a href="mailto:hello@example.com" class="glass contact-card contact-item" style="text-decoration:none; color:inherit"><i class='bx bx-envelope'></i> hello@example.com</a>
+          <a href="tel:+8801000000000" class="glass contact-card contact-item" style="text-decoration:none; color:inherit"><i class='bx bx-phone'></i> +880 10 0000 0000</a>
+          <div class="glass contact-card contact-item"><i class='bx bx-time-five'></i> Available: Mon–Fri, 9am–6pm</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container foot">
+      <div>© <span id="year"></span> NurAlom. All rights reserved.</div>
+      <div class="social">
+        <a href="#"><i class='bx bxl-github'></i></a>
+        <a href="#"><i class='bx bxl-linkedin'></i></a>
+        <a href="#"><i class='bx bxl-twitter'></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
+
+    // Active link on scroll
+    const links = [...document.querySelectorAll('.nav-links a')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = '#' + entry.target.id;
+        const link = links.find(a => a.getAttribute('href') === id);
+        if (entry.isIntersecting) {
+          links.forEach(a => a.classList.remove('active'));
+          link?.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+
+    sections.forEach(s => s && observer.observe(s));
+  </script>
+</body>
+</html>
